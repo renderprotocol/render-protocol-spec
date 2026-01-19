@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package proto.renderprotocol.api.v1;
+
+import "proto/renderprotocol/ui/v1/rp_ui_core.proto";
+
+option cc_enable_arenas = true;
+option java_multiple_files = true;
+option java_outer_classname = "RPGenerated";
+option java_package = "proto.renderprotocol.api.v1";
+option objc_class_prefix = "";
+option optimize_for = SPEED;
+option swift_prefix = "";
+
+message RPFetchViewRequest {
+  string session_token = 1;
+  string view_id = 2;
+}
+
+message RPFetchViewResponse {
+  string id = 1;
+  ui.v1.RPWidget view = 2;
+}
+
+service RPRenderService {
+  rpc RPFetchView(RPFetchViewRequest) returns (RPFetchViewResponse);
+}
