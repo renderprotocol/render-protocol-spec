@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package proto.renderprotocol.api.v1;
+
+option cc_enable_arenas = true;
+option java_multiple_files = true;
+option java_outer_classname = "RPGenerated";
+option java_package = "proto.renderprotocol.api.v1";
+option objc_class_prefix = "";
+option optimize_for = SPEED;
+option swift_prefix = "";
+
+enum RPPlatform {
+  RP_PLATFORM_UNSPECIFIED = 0;
+  RP_PLATFORM_APPLE = 1;
+  RP_PLATFORM_ANDROID = 2;
+  RP_PLATFORM_FLUTTER = 3;
+  RP_PLATFORM_EMBEDDED = 4;
+}

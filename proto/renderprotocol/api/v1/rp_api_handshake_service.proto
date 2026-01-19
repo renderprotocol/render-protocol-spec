@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package proto.renderprotocol.api.v1;
+
+import "proto/renderprotocol/api/v1/rp_api_metadata.proto";
+
+option cc_enable_arenas = true;
+option java_multiple_files = true;
+option java_outer_classname = "RPGenerated";
+option java_package = "proto.renderprotocol.api.v1";
+option objc_class_prefix = "";
+option optimize_for = SPEED;
+option swift_prefix = "";
+
+message RPInitiateRequest {
+  RPAppMetadata app_metadata = 1;
+}
+
+message RPInitiateResponse {
+  string session_token = 1;
+}
+
+service RPHandshakeService {
+  rpc RPInitiate(RPInitiateRequest) returns (RPInitiateResponse);
+}
