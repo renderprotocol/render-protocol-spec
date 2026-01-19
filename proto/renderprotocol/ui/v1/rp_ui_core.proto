@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+package proto.renderprotocol.ui.v1;
+
+import "proto/renderprotocol/ui/v1/rp_ui_image.proto";
+import "proto/renderprotocol/ui/v1/rp_ui_text.proto";
+
+option cc_enable_arenas = true;
+option java_multiple_files = true;
+option java_outer_classname = "RPGenerated";
+option java_package = "proto.renderprotocol.ui.v1";
+option objc_class_prefix = "";
+option optimize_for = SPEED;
+option swift_prefix = "";
+
+message RPWidget {
+  string id = 1;
+
+  oneof content {
+    RPRow row = 51;
+    RPColumn column = 52;
+    RPStack stack = 53;
+
+    RPText text = 101;
+    RPImage image = 102;
+  }
+}
+
+message RPRow {
+  repeated RPWidget children = 1;
+}
+
+message RPColumn {
+  repeated RPWidget children = 1;
+}
+
+message RPStack {
+  repeated RPWidget children = 1;
+}
