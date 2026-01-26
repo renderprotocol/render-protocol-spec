@@ -12,16 +12,16 @@ option objc_class_prefix = "";
 option optimize_for = SPEED;
 option swift_prefix = "";
 
-message RPFetchViewRequest {
+message RPFetchRenderTreeRequest {
   string session_token = 1;
   string view_id = 2;
 }
 
-message RPFetchViewResponse {
+message RPFetchRenderTreeResponse {
   string id = 1;
   ui.v1.RPWidget view = 2;
 }
 
 service RPRenderService {
-  rpc RPFetchView(RPFetchViewRequest) returns (RPFetchViewResponse);
+  rpc RPFetchRenderTree(RPFetchRenderTreeRequest) returns (RPFetchRenderTreeResponse);
 }
