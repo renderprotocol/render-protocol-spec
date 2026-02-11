@@ -2,7 +2,6 @@ syntax = "proto3";
 
 package proto.renderprotocol.ui.v1;
 
-import "proto/renderprotocol/ui/v1/rp_ui_clip.proto";
 import "proto/renderprotocol/ui/v1/rp_ui_color.proto";
 
 option cc_enable_arenas = true;
@@ -13,16 +12,20 @@ option objc_class_prefix = "";
 option optimize_for = SPEED;
 option swift_prefix = "";
 
-message RPModifier {
+message RPPadding {
   oneof value {
-    RPBorder border = 1;
-    RPPadding padding = 2;
-    RPColor background_color = 3;
-    RPClip clip = 4;
+    float all = 1;
+    RPSymmetricPadding symmetric = 2;
+    RPExplicitPadding explicit = 3;
   }
 }
 
-message RPPadding {
+message RPSymmetricPadding {
+  float vertical = 1;
+  float horizontal = 2;
+}
+
+message RPExplicitPadding {
   float top = 1;
   float bottom = 2;
   float left = 3;

@@ -3,6 +3,8 @@ syntax = "proto3";
 package proto.renderprotocol.ui.v1;
 
 import "proto/renderprotocol/ui/v1/rp_ui_alignment.proto";
+import "proto/renderprotocol/ui/v1/rp_ui_clip.proto";
+import "proto/renderprotocol/ui/v1/rp_ui_color.proto";
 import "proto/renderprotocol/ui/v1/rp_ui_image.proto";
 import "proto/renderprotocol/ui/v1/rp_ui_modifier.proto";
 import "proto/renderprotocol/ui/v1/rp_ui_text.proto";
@@ -17,12 +19,12 @@ option swift_prefix = "";
 
 message RPWidget {
   string id = 1;
-  repeated RPModifier modifiers = 2;
 
   oneof content {
     RPRow row = 51;
     RPColumn column = 52;
     RPStack stack = 53;
+    RPContainer container = 54;
 
     RPText text = 101;
     RPImage image = 102;
@@ -45,4 +47,15 @@ message RPColumn {
 
 message RPStack {
   repeated RPWidget children = 1;
+}
+
+message RPContainer {
+  RPWidget child = 1;
+
+  oneof value {
+    RPBorder border = 11;
+    RPPadding padding = 12;
+    RPColor background_color = 13;
+    RPClip clip = 14;
+  }
 }
