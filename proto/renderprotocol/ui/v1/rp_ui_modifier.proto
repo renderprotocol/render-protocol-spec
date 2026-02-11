@@ -2,6 +2,7 @@ syntax = "proto3";
 
 package proto.renderprotocol.ui.v1;
 
+import "proto/renderprotocol/ui/v1/rp_ui_clip.proto";
 import "proto/renderprotocol/ui/v1/rp_ui_color.proto";
 
 option cc_enable_arenas = true;
@@ -17,17 +18,11 @@ message RPModifier {
     RPBorder border = 1;
     RPPadding padding = 2;
     RPColor background_color = 3;
+    RPClip clip = 4;
   }
 }
 
 message RPPadding {
-  float top = 1;
-  float bottom = 2;
-  float left = 3;
-  float right = 4;
-}
-
-message RPMargin {
   float top = 1;
   float bottom = 2;
   float left = 3;

@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package proto.renderprotocol.ui.v1;
+
+option cc_enable_arenas = true;
+option java_multiple_files = true;
+option java_outer_classname = "RPGenerated";
+option java_package = "proto.renderprotocol.ui.v1";
+option objc_class_prefix = "";
+option optimize_for = SPEED;
+option swift_prefix = "";
+
+enum RPAlignment {
+  RP_ALIGNMENT_UNSPECIFIED = 0;
+  RP_ALIGNMENT_CENTER = 1;
+  RP_ALIGNMENT_TOP = 2;
+  RP_ALIGNMENT_BOTTOM = 3;
+  RP_ALIGNMENT_LEADING = 4;
+  RP_ALIGNMENT_TRAILING = 5;
+  RP_ALIGNMENT_TOP_LEADING = 6;
+  RP_ALIGNMENT_TOP_TRAILING = 7;
+  RP_ALIGNMENT_BOTTOM_LEADING = 8;
+  RP_ALIGNMENT_BOTTOM_TRAILING = 9;
+}
+
+enum RPAxisAlignment {
+  RP_AXIS_ALIGNMENT_UNSPECIFIED = 0;
+  RP_AXIS_ALIGNMENT_CENTER = 1;
+  RP_AXIS_ALIGNMENT_LEADING = 2;
+  RP_AXIS_ALIGNMENT_TRAILING = 3;
+  RP_AXIS_ALIGNMENT_SPACE_BETWEEN = 4;
+  RP_AXIS_ALIGNMENT_SPACE_EVENLY = 5;
+}

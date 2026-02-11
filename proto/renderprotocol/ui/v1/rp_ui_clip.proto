@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package proto.renderprotocol.ui.v1;
+
+import "proto/renderprotocol/ui/v1/rp_ui_shape.proto";
+
+option cc_enable_arenas = true;
+option java_multiple_files = true;
+option java_outer_classname = "RPGenerated";
+option java_package = "proto.renderprotocol.ui.v1";
+option objc_class_prefix = "";
+option optimize_for = SPEED;
+option swift_prefix = "";
+
+message RPClip {
+  RPClipShape shape = 1;
+  RPClipType type = 2;
+}
+
+message RPClipShape {
+  oneof value {
+    RPShapeRectangle rectangle = 1;
+    RPShapeCircle circle = 2;
+    RPShapeEllipse ellipse = 3;
+    RPShapeCapsule capsule = 4;
+    RPShapeRoundedRectangle rounded_rectangle = 5;
+  }
+}
+
+enum RPClipType {
+  RP_CLIP_TYPE_UNSPECIFIED = 0;
+  RP_CLIP_TYPE_HARD_EDGE = 1;
+  RP_CLIP_TYPE_ANTI_ALIAS = 2;
+  RP_CLIP_TYPE_ANTI_ALIAS_WITH_SAVE_LAYER = 3;
+}
