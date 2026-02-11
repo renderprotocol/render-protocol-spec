@@ -11,7 +11,7 @@ option optimize_for = SPEED;
 option swift_prefix = "";
 
 message RPColor {
-  string red = 1;
-  string green = 2;
-  string blue = 3;
+  int32 red = 1;
+  int32 green = 2;
+  int32 blue = 3;
 }
