@@ -12,9 +12,38 @@ option objc_class_prefix = "";
 option optimize_for = SPEED;
 option swift_prefix = "";
 
-message RPClip {
-  RPClipShape shape = 1;
-  RPClipType type = 2;
+enum RPAlignment {
+  RP_ALIGNMENT_UNSPECIFIED = 0;
+  RP_ALIGNMENT_CENTER = 1;
+  RP_ALIGNMENT_TOP = 2;
+  RP_ALIGNMENT_BOTTOM = 3;
+  RP_ALIGNMENT_LEADING = 4;
+  RP_ALIGNMENT_TRAILING = 5;
+  RP_ALIGNMENT_TOP_LEADING = 6;
+  RP_ALIGNMENT_TOP_TRAILING = 7;
+  RP_ALIGNMENT_BOTTOM_LEADING = 8;
+  RP_ALIGNMENT_BOTTOM_TRAILING = 9;
+}
+
+enum RPAxisAlignment {
+  RP_AXIS_ALIGNMENT_UNSPECIFIED = 0;
+  RP_AXIS_ALIGNMENT_CENTER = 1;
+  RP_AXIS_ALIGNMENT_LEADING = 2;
+  RP_AXIS_ALIGNMENT_TRAILING = 3;
+  RP_AXIS_ALIGNMENT_SPACE_BETWEEN = 4;
+  RP_AXIS_ALIGNMENT_SPACE_EVENLY = 5;
+}
+
+message RPSymmetricPadding {
+  float vertical = 1;
+  float horizontal = 2;
+}
+
+message RPExplicitPadding {
+  float top = 1;
+  float bottom = 2;
+  float left = 3;
+  float right = 4;
 }
 
 message RPClipShape {

@@ -2,11 +2,9 @@ syntax = "proto3";
 
 package proto.renderprotocol.ui.v1;
 
-import "proto/renderprotocol/ui/v1/rp_ui_alignment.proto";
-import "proto/renderprotocol/ui/v1/rp_ui_clip.proto";
 import "proto/renderprotocol/ui/v1/rp_ui_color.proto";
+import "proto/renderprotocol/ui/v1/rp_ui_core_support.proto";
 import "proto/renderprotocol/ui/v1/rp_ui_image.proto";
-import "proto/renderprotocol/ui/v1/rp_ui_modifier.proto";
 import "proto/renderprotocol/ui/v1/rp_ui_text.proto";
 
 option cc_enable_arenas = true;
@@ -24,7 +22,10 @@ message RPWidget {
     RPRow row = 51;
     RPColumn column = 52;
     RPStack stack = 53;
-    RPContainer container = 54;
+    RPPadding padding = 54;
+    RPBackground background = 55;
+    RPBorder border = 56;
+    RPClip clip = 57;
 
     RPText text = 101;
     RPImage image = 102;
@@ -49,13 +50,31 @@ message RPStack {
   repeated RPWidget children = 1;
 }
 
-message RPContainer {
+message RPPadding {
   RPWidget child = 1;
 
   oneof value {
-    RPBorder border = 11;
-    RPPadding padding = 12;
-    RPColor background_color = 13;
-    RPClip clip = 14;
+    float all = 11;
+    RPSymmetricPadding symmetric = 12;
+    RPExplicitPadding explicit = 13;
   }
+}
+
+message RPBackground {
+  RPWidget child = 1;
+  RPColor color = 2;
+}
+
+message RPBorder {
+  RPWidget child = 1;
+  float width = 2;
+  RPColor color = 3;
+
+  optional float radius = 4;
+}
+
+message RPClip {
+  RPWidget child = 1;
+  RPClipShape shape = 2;
+  RPClipType type = 3;
 }
