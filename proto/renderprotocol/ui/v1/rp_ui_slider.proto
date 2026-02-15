@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package proto.renderprotocol.ui.v1;
+
+import "proto/renderprotocol/ui/v1/rp_ui_action.proto";
+import "proto/renderprotocol/ui/v1/rp_ui_color.proto";
+
+option cc_enable_arenas = true;
+option java_multiple_files = true;
+option java_outer_classname = "RPGenerated";
+option java_package = "proto.renderprotocol.ui.v1";
+option objc_class_prefix = "";
+option optimize_for = SPEED;
+option swift_prefix = "";
+
+message RPSlider {
+  string field_id = 1;
+  float min_value = 2;
+  float max_value = 3;
+  optional float initial_value = 4;
+  optional float step = 5;
+  optional RPColor active_color = 6;
+  bool enabled = 7;
+  optional RPAction on_change = 8;
+}

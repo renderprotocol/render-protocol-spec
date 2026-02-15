@@ -62,3 +62,59 @@ enum RPClipType {
   RP_CLIP_TYPE_ANTI_ALIAS = 2;
   RP_CLIP_TYPE_ANTI_ALIAS_WITH_SAVE_LAYER = 3;
 }
+
+message RPSize {
+  float width = 1;
+  float height = 2;
+}
+
+message RPEdgeInsets {
+  float top = 1;
+  float bottom = 2;
+  float leading = 3;
+  float trailing = 4;
+}
+
+enum RPAxis {
+  RP_AXIS_UNSPECIFIED = 0;
+  RP_AXIS_HORIZONTAL = 1;
+  RP_AXIS_VERTICAL = 2;
+}
+
+enum RPCrossAxisAlignment {
+  RP_CROSS_AXIS_ALIGNMENT_UNSPECIFIED = 0;
+  RP_CROSS_AXIS_ALIGNMENT_START = 1;
+  RP_CROSS_AXIS_ALIGNMENT_CENTER = 2;
+  RP_CROSS_AXIS_ALIGNMENT_END = 3;
+  RP_CROSS_AXIS_ALIGNMENT_STRETCH = 4;
+}
+
+enum RPMainAxisSize {
+  RP_MAIN_AXIS_SIZE_UNSPECIFIED = 0;
+  RP_MAIN_AXIS_SIZE_MIN = 1;
+  RP_MAIN_AXIS_SIZE_MAX = 2;
+}
+
+message RPGridLayout {
+  oneof value {
+    RPFixedGrid fixed = 1;
+    RPAdaptiveGrid adaptive = 2;
+  }
+}
+
+message RPFixedGrid {
+  int32 count = 1;
+}
+
+message RPAdaptiveGrid {
+  float min_item_width = 1;
+}
+
+enum RPButtonStyle {
+  RP_BUTTON_STYLE_UNSPECIFIED = 0;
+  RP_BUTTON_STYLE_PRIMARY = 1;
+  RP_BUTTON_STYLE_SECONDARY = 2;
+  RP_BUTTON_STYLE_TEXT = 3;
+  RP_BUTTON_STYLE_OUTLINED = 4;
+  RP_BUTTON_STYLE_DESTRUCTIVE = 5;
+}

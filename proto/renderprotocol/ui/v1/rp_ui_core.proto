@@ -2,10 +2,18 @@ syntax = "proto3";
 
 package proto.renderprotocol.ui.v1;
 
+import "proto/renderprotocol/ui/v1/rp_ui_action.proto";
+import "proto/renderprotocol/ui/v1/rp_ui_bottom_nav_bar.proto";
 import "proto/renderprotocol/ui/v1/rp_ui_color.proto";
 import "proto/renderprotocol/ui/v1/rp_ui_core_support.proto";
+import "proto/renderprotocol/ui/v1/rp_ui_divider.proto";
+import "proto/renderprotocol/ui/v1/rp_ui_icon.proto";
 import "proto/renderprotocol/ui/v1/rp_ui_image.proto";
+import "proto/renderprotocol/ui/v1/rp_ui_progress_indicator.proto";
+import "proto/renderprotocol/ui/v1/rp_ui_slider.proto";
+import "proto/renderprotocol/ui/v1/rp_ui_spacer.proto";
 import "proto/renderprotocol/ui/v1/rp_ui_text.proto";
+import "proto/renderprotocol/ui/v1/rp_ui_text_field.proto";
 
 option cc_enable_arenas = true;
 option java_multiple_files = true;
@@ -15,40 +23,126 @@ option objc_class_prefix = "";
 option optimize_for = SPEED;
 option swift_prefix = "";
 
+// ─────────────────────────────────────────────────────────
+// Root Widget
+// ─────────────────────────────────────────────────────────
+
 message RPWidget {
   string id = 1;
 
   oneof content {
+    // Layout (51–69)
     RPRow row = 51;
     RPColumn column = 52;
     RPStack stack = 53;
-    RPPadding padding = 54;
-    RPBackground background = 55;
-    RPBorder border = 56;
-    RPClip clip = 57;
+    RPScrollView scroll_view = 58;
+    RPLazyList lazy_list = 59;
+    RPLazyGrid lazy_grid = 60;
+    RPWrap wrap = 61;
+    RPCenter center = 62;
+    RPExpanded expanded = 63;
 
+    // Modifiers (70–89)
+    RPPadding padding = 70;
+    RPBackground background = 71;
+    RPBorder border = 72;
+    RPClip clip = 73;
+    RPOpacity opacity = 74;
+    RPVisibility visibility = 75;
+    RPShadow shadow = 76;
+    RPSizeBox size_box = 77;
+    RPSafeArea safe_area = 78;
+    RPAspectRatio aspect_ratio = 79;
+    RPPositioned positioned = 80;
+
+    // Display (101–149)
     RPText text = 101;
     RPImage image = 102;
+    RPIcon icon = 103;
+    RPSpacer spacer = 104;
+    RPDivider divider = 105;
+    RPProgressIndicator progress_indicator = 106;
+    RPButton button = 107;
+
+    // Input (150–179)
+    RPTextField text_field = 150;
+    RPToggle toggle = 151;
+    RPSlider slider = 152;
+
+    // Composite (180–199)
+    RPCard card = 180;
+    RPListTile list_tile = 181;
+    RPAppBar app_bar = 182;
+    RPBottomNavBar bottom_nav_bar = 183;
+    RPBadge badge = 184;
+    RPScaffold scaffold = 185;
+
+    // Interactive (200–219)
+    RPGestureDetector gesture_detector = 200;
   }
 }
 
+// ─────────────────────────────────────────────────────────
+// Layout Components
+// ─────────────────────────────────────────────────────────
+
 message RPRow {
   repeated RPWidget children = 1;
-
   int64 spacing = 2;
   RPAxisAlignment alignment = 3;
 }
 
 message RPColumn {
   repeated RPWidget children = 1;
-
   int64 spacing = 2;
   RPAxisAlignment alignment = 3;
 }
 
 message RPStack {
   repeated RPWidget children = 1;
+  RPAlignment alignment = 2;
 }
+
+message RPScrollView {
+  RPWidget child = 1;
+  RPAxis axis = 2;
+  bool shows_indicators = 3;
+}
+
+message RPLazyList {
+  repeated RPWidget children = 1;
+  RPAxis axis = 2;
+  float spacing = 3;
+  bool shows_indicators = 4;
+  optional RPWidget separator = 5;
+}
+
+message RPLazyGrid {
+  repeated RPWidget children = 1;
+  RPGridLayout layout = 2;
+  float spacing = 3;
+  float run_spacing = 4;
+}
+
+message RPWrap {
+  repeated RPWidget children = 1;
+  float spacing = 2;
+  float run_spacing = 3;
+  RPAlignment alignment = 4;
+}
+
+message RPCenter {
+  RPWidget child = 1;
+}
+
+message RPExpanded {
+  RPWidget child = 1;
+  int32 flex = 2;
+}
+
+// ─────────────────────────────────────────────────────────
+// Modifier Wrappers
+// ─────────────────────────────────────────────────────────
 
 message RPPadding {
   RPWidget child = 1;
@@ -69,7 +163,6 @@ message RPBorder {
   RPWidget child = 1;
   float width = 2;
   RPColor color = 3;
-
   optional float radius = 4;
 }
 
@@ -77,4 +170,129 @@ message RPClip {
   RPWidget child = 1;
   RPClipShape shape = 2;
   RPClipType type = 3;
+}
+
+message RPOpacity {
+  RPWidget child = 1;
+  float value = 2;
+}
+
+message RPVisibility {
+  RPWidget child = 1;
+  bool visible = 2;
+}
+
+message RPShadow {
+  RPWidget child = 1;
+  RPColor color = 2;
+  float radius = 3;
+  float offset_x = 4;
+  float offset_y = 5;
+}
+
+message RPSizeBox {
+  RPWidget child = 1;
+  optional float width = 2;
+  optional float height = 3;
+  optional float min_width = 4;
+  optional float min_height = 5;
+  optional float max_width = 6;
+  optional float max_height = 7;
+}
+
+message RPSafeArea {
+  RPWidget child = 1;
+  bool top = 2;
+  bool bottom = 3;
+  bool leading = 4;
+  bool trailing = 5;
+}
+
+message RPAspectRatio {
+  RPWidget child = 1;
+  float ratio = 2;
+  RPContentMode content_mode = 3;
+}
+
+message RPPositioned {
+  RPWidget child = 1;
+  optional float top = 2;
+  optional float bottom = 3;
+  optional float leading = 4;
+  optional float trailing = 5;
+}
+
+// ─────────────────────────────────────────────────────────
+// Display Components (RPWidget-referencing)
+// ─────────────────────────────────────────────────────────
+
+message RPButton {
+  RPWidget label = 1;
+  RPAction action = 2;
+  RPButtonStyle style = 3;
+  bool disabled = 4;
+}
+
+// ─────────────────────────────────────────────────────────
+// Input Components (RPWidget-referencing)
+// ─────────────────────────────────────────────────────────
+
+message RPToggle {
+  string field_id = 1;
+  bool initial_value = 2;
+  optional RPWidget label = 3;
+  optional RPColor on_color = 4;
+  bool enabled = 5;
+  optional RPAction on_change = 6;
+}
+
+// ─────────────────────────────────────────────────────────
+// Composite Components (RPWidget-referencing)
+// ─────────────────────────────────────────────────────────
+
+message RPCard {
+  RPWidget child = 1;
+  optional float elevation = 2;
+  optional float corner_radius = 3;
+  optional RPColor background_color = 4;
+  optional RPEdgeInsets padding = 5;
+}
+
+message RPListTile {
+  optional RPWidget leading = 1;
+  RPWidget title = 2;
+  optional RPWidget subtitle = 3;
+  optional RPWidget trailing = 4;
+  optional RPAction on_tap = 5;
+}
+
+message RPAppBar {
+  optional RPWidget title = 1;
+  optional RPWidget leading = 2;
+  repeated RPWidget actions = 3;
+  optional RPColor background_color = 4;
+}
+
+message RPBadge {
+  RPWidget child = 1;
+  optional string value = 2;
+  optional RPColor color = 3;
+}
+
+message RPScaffold {
+  optional RPAppBar app_bar = 1;
+  RPWidget body = 2;
+  optional RPBottomNavBar bottom_nav_bar = 3;
+  optional RPColor background_color = 4;
+}
+
+// ─────────────────────────────────────────────────────────
+// Interactive Wrappers
+// ─────────────────────────────────────────────────────────
+
+message RPGestureDetector {
+  RPWidget child = 1;
+  optional RPAction on_tap = 2;
+  optional RPAction on_long_press = 3;
+  optional RPAction on_double_tap = 4;
 }

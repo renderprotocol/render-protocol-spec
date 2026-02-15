@@ -2,6 +2,8 @@ syntax = "proto3";
 
 package proto.renderprotocol.ui.v1;
 
+import "proto/renderprotocol/ui/v1/rp_ui_core_support.proto";
+
 option cc_enable_arenas = true;
 option java_multiple_files = true;
 option java_outer_classname = "RPGenerated";
@@ -14,4 +16,29 @@ message RPColor {
   int32 red = 1;
   int32 green = 2;
   int32 blue = 3;
+  optional float opacity = 4;
+}
+
+message RPGradientStop {
+  RPColor color = 1;
+  float position = 2;
+}
+
+message RPLinearGradient {
+  repeated RPGradientStop stops = 1;
+  RPAlignment start_point = 2;
+  RPAlignment end_point = 3;
+}
+
+message RPRadialGradient {
+  repeated RPGradientStop stops = 1;
+  float radius = 2;
+}
+
+message RPColorValue {
+  oneof value {
+    RPColor solid = 1;
+    RPLinearGradient linear_gradient = 2;
+    RPRadialGradient radial_gradient = 3;
+  }
 }

@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+package proto.renderprotocol.ui.v1;
+
+option cc_enable_arenas = true;
+option java_multiple_files = true;
+option java_outer_classname = "RPGenerated";
+option java_package = "proto.renderprotocol.ui.v1";
+option objc_class_prefix = "";
+option optimize_for = SPEED;
+option swift_prefix = "";
+
+message RPAction {
+  oneof action {
+    RPNavigationAction navigation = 1;
+    RPApiCallAction api_call = 2;
+    RPOpenUrlAction open_url = 3;
+    RPDismissAction dismiss = 4;
+    RPCustomAction custom = 5;
+  }
+}
+
+message RPNavigationAction {
+  string destination_view_id = 1;
+  map<string, string> parameters = 2;
+}
+
+message RPApiCallAction {
+  string endpoint = 1;
+  string method = 2;
+  map<string, string> headers = 3;
+  optional string body = 4;
+}
+
+message RPOpenUrlAction {
+  string url = 1;
+  bool external = 2;
+}
+
+message RPDismissAction {}
+
+message RPCustomAction {
+  string action_type = 1;
+  map<string, string> payload = 2;
+}

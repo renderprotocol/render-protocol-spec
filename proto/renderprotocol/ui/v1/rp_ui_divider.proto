@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package proto.renderprotocol.ui.v1;
+
+import "proto/renderprotocol/ui/v1/rp_ui_color.proto";
+import "proto/renderprotocol/ui/v1/rp_ui_core_support.proto";
+
+option cc_enable_arenas = true;
+option java_multiple_files = true;
+option java_outer_classname = "RPGenerated";
+option java_package = "proto.renderprotocol.ui.v1";
+option objc_class_prefix = "";
+option optimize_for = SPEED;
+option swift_prefix = "";
+
+message RPDivider {
+  optional float thickness = 1;
+  optional RPColor color = 2;
+  optional RPEdgeInsets indent = 3;
+}

@@ -2,6 +2,8 @@ syntax = "proto3";
 
 package proto.renderprotocol.ui.v1;
 
+import "proto/renderprotocol/ui/v1/rp_ui_color.proto";
+
 option cc_enable_arenas = true;
 option java_multiple_files = true;
 option java_outer_classname = "RPGenerated";
@@ -12,4 +14,61 @@ option swift_prefix = "";
 
 message RPText {
   string value = 1;
+  optional RPTextStyle style = 2;
+  optional int32 max_lines = 3;
+  RPTextOverflow overflow = 4;
+  RPTextAlignment text_alignment = 5;
+}
+
+message RPTextStyle {
+  optional float font_size = 1;
+  RPFontWeight font_weight = 2;
+  optional RPColor color = 3;
+  optional float line_height = 4;
+  optional float letter_spacing = 5;
+  RPTextDecoration decoration = 6;
+  optional string font_family = 7;
+  RPFontStyle font_style = 8;
+}
+
+enum RPFontWeight {
+  RP_FONT_WEIGHT_UNSPECIFIED = 0;
+  RP_FONT_WEIGHT_THIN = 1;
+  RP_FONT_WEIGHT_EXTRA_LIGHT = 2;
+  RP_FONT_WEIGHT_LIGHT = 3;
+  RP_FONT_WEIGHT_REGULAR = 4;
+  RP_FONT_WEIGHT_MEDIUM = 5;
+  RP_FONT_WEIGHT_SEMI_BOLD = 6;
+  RP_FONT_WEIGHT_BOLD = 7;
+  RP_FONT_WEIGHT_EXTRA_BOLD = 8;
+  RP_FONT_WEIGHT_BLACK = 9;
+}
+
+enum RPFontStyle {
+  RP_FONT_STYLE_UNSPECIFIED = 0;
+  RP_FONT_STYLE_NORMAL = 1;
+  RP_FONT_STYLE_ITALIC = 2;
+}
+
+enum RPTextDecoration {
+  RP_TEXT_DECORATION_UNSPECIFIED = 0;
+  RP_TEXT_DECORATION_NONE = 1;
+  RP_TEXT_DECORATION_UNDERLINE = 2;
+  RP_TEXT_DECORATION_LINE_THROUGH = 3;
+  RP_TEXT_DECORATION_OVERLINE = 4;
+}
+
+enum RPTextOverflow {
+  RP_TEXT_OVERFLOW_UNSPECIFIED = 0;
+  RP_TEXT_OVERFLOW_CLIP = 1;
+  RP_TEXT_OVERFLOW_ELLIPSIS = 2;
+  RP_TEXT_OVERFLOW_FADE = 3;
+}
+
+enum RPTextAlignment {
+  RP_TEXT_ALIGNMENT_UNSPECIFIED = 0;
+  RP_TEXT_ALIGNMENT_LEFT = 1;
+  RP_TEXT_ALIGNMENT_CENTER = 2;
+  RP_TEXT_ALIGNMENT_RIGHT = 3;
+  RP_TEXT_ALIGNMENT_JUSTIFY = 4;
 }

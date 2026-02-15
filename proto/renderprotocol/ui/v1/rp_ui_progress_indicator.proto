@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package proto.renderprotocol.ui.v1;
+
+import "proto/renderprotocol/ui/v1/rp_ui_color.proto";
+
+option cc_enable_arenas = true;
+option java_multiple_files = true;
+option java_outer_classname = "RPGenerated";
+option java_package = "proto.renderprotocol.ui.v1";
+option objc_class_prefix = "";
+option optimize_for = SPEED;
+option swift_prefix = "";
+
+message RPProgressIndicator {
+  RPProgressIndicatorType type = 1;
+  optional float value = 2;
+  optional RPColor color = 3;
+  optional RPColor track_color = 4;
+  optional float stroke_width = 5;
+}
+
+enum RPProgressIndicatorType {
+  RP_PROGRESS_INDICATOR_TYPE_UNSPECIFIED = 0;
+  RP_PROGRESS_INDICATOR_TYPE_CIRCULAR = 1;
+  RP_PROGRESS_INDICATOR_TYPE_LINEAR = 2;
+}

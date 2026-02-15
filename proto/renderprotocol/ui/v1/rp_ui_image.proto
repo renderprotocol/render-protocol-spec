@@ -2,6 +2,8 @@ syntax = "proto3";
 
 package proto.renderprotocol.ui.v1;
 
+import "proto/renderprotocol/ui/v1/rp_ui_color.proto";
+
 option cc_enable_arenas = true;
 option java_multiple_files = true;
 option java_outer_classname = "RPGenerated";
@@ -12,4 +14,18 @@ option swift_prefix = "";
 
 message RPImage {
   string url = 1;
+  optional float width = 2;
+  optional float height = 3;
+  RPContentMode content_mode = 4;
+  optional string placeholder_url = 5;
+  optional RPColor tint_color = 6;
+  optional string alt_text = 7;
+}
+
+enum RPContentMode {
+  RP_CONTENT_MODE_UNSPECIFIED = 0;
+  RP_CONTENT_MODE_FIT = 1;
+  RP_CONTENT_MODE_FILL = 2;
+  RP_CONTENT_MODE_STRETCH = 3;
+  RP_CONTENT_MODE_NONE = 4;
 }

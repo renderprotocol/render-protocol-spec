@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package proto.renderprotocol.ui.v1;
+
+import "proto/renderprotocol/ui/v1/rp_ui_action.proto";
+import "proto/renderprotocol/ui/v1/rp_ui_text.proto";
+
+option cc_enable_arenas = true;
+option java_multiple_files = true;
+option java_outer_classname = "RPGenerated";
+option java_package = "proto.renderprotocol.ui.v1";
+option objc_class_prefix = "";
+option optimize_for = SPEED;
+option swift_prefix = "";
+
+message RPTextField {
+  string field_id = 1;
+  optional string placeholder = 2;
+  optional string initial_value = 3;
+  RPKeyboardType keyboard_type = 4;
+  bool secure_entry = 5;
+  optional int32 max_length = 6;
+  optional RPTextStyle text_style = 7;
+  bool enabled = 8;
+  optional RPAction on_submit = 9;
+}
+
+enum RPKeyboardType {
+  RP_KEYBOARD_TYPE_UNSPECIFIED = 0;
+  RP_KEYBOARD_TYPE_DEFAULT = 1;
+  RP_KEYBOARD_TYPE_EMAIL = 2;
+  RP_KEYBOARD_TYPE_NUMBER = 3;
+  RP_KEYBOARD_TYPE_PHONE = 4;
+  RP_KEYBOARD_TYPE_URL = 5;
+  RP_KEYBOARD_TYPE_DECIMAL = 6;
+}
