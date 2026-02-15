@@ -1,0 +1,39 @@
+# ==============================================================================
+#  DISPATCH CODE GENERATION
+# ==============================================================================
+#
+#  When proto specs are updated on main, notify downstream repos to regenerate.
+#
+#  Required secret: RP_DISPATCH_TOKEN (PAT with repo scope)
+# ==============================================================================
+
+name: Dispatch Code Generation
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  dispatch:
+    name: Notify downstream repos
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        repo:
+          - renderprotocol/RPGeneratedSwift
+          - renderprotocol/rp_generated_dart
+
+    steps:
+      - name: Dispatch proto-updated event to ${{ matrix.repo }}
+        uses: peter-evans/repository-dispatch@v3
+        with:
+          token: ${{ secrets.RP_DISPATCH_TOKEN }}
+          repository: ${{ matrix.repo }}
+          event-type: proto-updated
+          client-payload: |
+            {
+              "spec_sha": "${{ github.sha }}",
+              "spec_short_sha": "${{ github.sha }}",
+              "spec_message": "${{ github.event.head_commit.message }}"
+            }
