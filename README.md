@@ -70,4 +70,4 @@ Details will be linked once available.
 
 ## License
 
-To be defined.
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
