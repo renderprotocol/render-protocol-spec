@@ -23,6 +23,7 @@ jobs:
         repo:
           - renderprotocol/RPGeneratedSwift
           - renderprotocol/rp_generated_dart
+          - renderprotocol/rp-generated-cpp
 
     steps:
       - name: Dispatch proto-updated event to ${{ matrix.repo }}
