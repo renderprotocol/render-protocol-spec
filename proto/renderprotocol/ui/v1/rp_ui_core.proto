@@ -35,7 +35,7 @@ message RPWidget {
     RPRow row = 51;
     RPColumn column = 52;
     RPStack stack = 53;
-    RPScrollView scroll_view = 58;
+    RPScrollable scroll_view = 58;
     RPLazyList lazy_list = 59;
     RPLazyGrid lazy_grid = 60;
     RPWrap wrap = 61;
@@ -103,7 +103,7 @@ message RPStack {
   RPAlignment alignment = 2;
 }
 
-message RPScrollView {
+message RPScrollable {
   RPWidget child = 1;
   RPAxis axis = 2;
   bool shows_indicators = 3;
