@@ -35,7 +35,7 @@ message RPWidget {
     RPRow row = 51;
     RPColumn column = 52;
     RPStack stack = 53;
-    RPScrollable scroll_view = 58;
+    RPScrollable scrollable = 58;
     RPLazyList lazy_list = 59;
     RPLazyGrid lazy_grid = 60;
     RPWrap wrap = 61;
