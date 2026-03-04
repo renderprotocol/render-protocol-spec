@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+package proto.renderprotocol.api.v1;
+
+option cc_enable_arenas = true;
+option java_multiple_files = true;
+option java_outer_classname = "RPGenerated";
+option java_package = "proto.renderprotocol.api.v1";
+option objc_class_prefix = "";
+option optimize_for = SPEED;
+option swift_prefix = "";
+
+message RPStatus {
+  RPStatusCode code = 1;
+  string message = 2;
+  map<string, string> details = 3;
+}
+
+enum RPStatusCode {
+  RP_STATUS_CODE_UNSPECIFIED = 0;
+
+  // Success
+  RP_STATUS_CODE_OK = 1;
+
+  // Client errors
+  RP_STATUS_CODE_INVALID_REQUEST = 10;
+  RP_STATUS_CODE_UNAUTHORIZED = 11;
+  RP_STATUS_CODE_SESSION_EXPIRED = 12;
+  RP_STATUS_CODE_NOT_FOUND = 13;
+  RP_STATUS_CODE_RATE_LIMITED = 14;
+  RP_STATUS_CODE_VERSION_MISMATCH = 15;
+
+  // Server errors
+  RP_STATUS_CODE_INTERNAL_ERROR = 20;
+  RP_STATUS_CODE_UNAVAILABLE = 21;
+  RP_STATUS_CODE_TIMEOUT = 22;
+}

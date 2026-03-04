@@ -14,54 +14,85 @@ option optimize_for = SPEED;
 option swift_prefix = "";
 
 // ─────────────────────────────────────────────────────────
-// Initiate
+// Submit Event
 // ─────────────────────────────────────────────────────────
 
-message RPInitiateRequest {
-  RPAppMetadata app_metadata = 1;
-  RPDeviceMetadata device_metadata = 2;
+message RPSubmitEventRequest {
+  RPSessionContext context = 1;
+  string view_id = 2;
+  string event_id = 3;
+  RPEventType event_type = 4;
+  RPEventPayload payload = 5;
+  int64 timestamp_unix = 6;
 }
 
-message RPInitiateResponse {
+message RPSubmitEventResponse {
   RPStatus status = 1;
-  string session_token = 2;
-  string refresh_token = 3;
-  int64 expires_at_unix = 4;
 }
 
 // ─────────────────────────────────────────────────────────
-// Refresh Session
+// Batch Events
 // ─────────────────────────────────────────────────────────
 
-message RPRefreshSessionRequest {
-  string refresh_token = 1;
+message RPSubmitBatchEventsRequest {
+  RPSessionContext context = 1;
+  repeated RPSubmitEventRequest events = 2;
 }
 
-message RPRefreshSessionResponse {
+message RPSubmitBatchEventsResponse {
   RPStatus status = 1;
-  string session_token = 2;
-  string refresh_token = 3;
-  int64 expires_at_unix = 4;
+  int32 accepted_count = 2;
+  int32 rejected_count = 3;
 }
 
 // ─────────────────────────────────────────────────────────
-// End Session
+// Event Types & Payloads
 // ─────────────────────────────────────────────────────────
 
-message RPEndSessionRequest {
-  string session_token = 1;
+enum RPEventType {
+  RP_EVENT_TYPE_UNSPECIFIED = 0;
+  RP_EVENT_TYPE_VIEW_APPEARED = 1;
+  RP_EVENT_TYPE_VIEW_DISAPPEARED = 2;
+  RP_EVENT_TYPE_WIDGET_STATE = 3;
+  RP_EVENT_TYPE_FORM_SUBMIT = 4;
+  RP_EVENT_TYPE_CUSTOM = 5;
 }
 
-message RPEndSessionResponse {
-  RPStatus status = 1;
+message RPEventPayload {
+  oneof payload {
+    RPViewLifecyclePayload view_lifecycle = 1;
+    RPWidgetStatePayload widget_state = 2;
+    RPFormSubmitPayload form_submit = 3;
+    RPCustomEventPayload custom = 4;
+  }
+}
+
+message RPViewLifecyclePayload {
+  string view_id = 1;
+  optional int64 duration_ms = 2;
+}
+
+message RPWidgetStatePayload {
+  string widget_id = 1;
+  string field_id = 2;
+  string value = 3;
+}
+
+message RPFormSubmitPayload {
+  string form_id = 1;
+  map<string, string> fields = 2;
+}
+
+message RPCustomEventPayload {
+  string event_name = 1;
+  map<string, string> properties = 2;
 }
 
 // ─────────────────────────────────────────────────────────
 // Service
 // ─────────────────────────────────────────────────────────
 
-service RPHandshakeService {
-  rpc RPInitiate(RPInitiateRequest) returns (RPInitiateResponse);
-  rpc RPRefreshSession(RPRefreshSessionRequest) returns (RPRefreshSessionResponse);
-  rpc RPEndSession(RPEndSessionRequest) returns (RPEndSessionResponse);
+service RPEventService {
+  rpc RPSubmitEvent(RPSubmitEventRequest) returns (RPSubmitEventResponse);
+  rpc RPSubmitBatchEvents(RPSubmitBatchEventsRequest) returns (RPSubmitBatchEventsResponse);
 }

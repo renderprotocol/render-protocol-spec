@@ -2,6 +2,8 @@ syntax = "proto3";
 
 package proto.renderprotocol.api.v1;
 
+import "proto/renderprotocol/api/v1/rp_api_metadata.proto";
+import "proto/renderprotocol/api/v1/rp_api_status.proto";
 import "proto/renderprotocol/ui/v1/rp_ui_core.proto";
 
 option cc_enable_arenas = true;
@@ -12,16 +14,72 @@ option objc_class_prefix = "";
 option optimize_for = SPEED;
 option swift_prefix = "";
 
+// ─────────────────────────────────────────────────────────
+// Fetch Full Render Tree
+// ─────────────────────────────────────────────────────────
+
 message RPFetchRenderTreeRequest {
-  string session_token = 1;
-  string view_id = 2;
+  RPSessionContext context = 1;
+  string id = 2;
+  map<string, string> parameters = 3;
+  optional string cached_version = 4;
 }
 
 message RPFetchRenderTreeResponse {
-  string id = 1;
-  ui.v1.RPWidget view = 2;
+  RPStatus status = 1;
+  string id = 2;
+  ui.v1.RPWidget tree = 3;
+  string version = 4;
+  bool not_modified = 5;
 }
+
+// ─────────────────────────────────────────────────────────
+// Fetch Component Fragment
+// ─────────────────────────────────────────────────────────
+
+message RPFetchComponentRequest {
+  RPSessionContext context = 1;
+  string tree_id = 2;
+  string component_id = 3;
+  map<string, string> parameters = 4;
+}
+
+message RPFetchComponentResponse {
+  RPStatus status = 1;
+  ui.v1.RPWidget component = 2;
+  string version = 3;
+}
+
+// ─────────────────────────────────────────────────────────
+// Subscribe (Server Streaming)
+// ─────────────────────────────────────────────────────────
+
+message RPSubscribeRenderTreeRequest {
+  RPSessionContext context = 1;
+  string id = 2;
+  map<string, string> parameters = 3;
+}
+
+message RPSubscribeRenderTreeResponse {
+  RPStatus status = 1;
+  string id = 2;
+  RPRenderTreeUpdateType update_type = 3;
+  ui.v1.RPWidget tree = 4;
+  string version = 5;
+}
+
+enum RPRenderTreeUpdateType {
+  RP_RENDER_TREE_UPDATE_TYPE_UNSPECIFIED = 0;
+  RP_RENDER_TREE_UPDATE_TYPE_FULL_REPLACE = 1;
+  RP_RENDER_TREE_UPDATE_TYPE_PARTIAL = 2;
+}
+
+// ─────────────────────────────────────────────────────────
+// Service
+// ─────────────────────────────────────────────────────────
 
 service RPRenderService {
   rpc RPFetchRenderTree(RPFetchRenderTreeRequest) returns (RPFetchRenderTreeResponse);
+  rpc RPFetchComponent(RPFetchComponentRequest) returns (RPFetchComponentResponse);
+  rpc RPSubscribeRenderTree(RPSubscribeRenderTreeRequest) returns (stream RPSubscribeRenderTreeResponse);
 }
