@@ -24,6 +24,7 @@ jobs:
           - renderprotocol/RPGeneratedSwift
           - renderprotocol/rp_generated_dart
           - renderprotocol/rp-generated-cpp
+          - renderprotocol/rp-generated-kotlin
 
     steps:
       - name: Dispatch proto-updated event to ${{ matrix.repo }}
