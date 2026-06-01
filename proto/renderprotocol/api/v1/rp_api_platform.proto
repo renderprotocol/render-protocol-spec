@@ -5,7 +5,7 @@ package proto.renderprotocol.api.v1;
 option cc_enable_arenas = true;
 option java_multiple_files = true;
 option java_outer_classname = "RPGenerated";
-option java_package = "proto.renderprotocol.api.v1";
+option java_package = "com.nukive.renderprotocol.api.v1";
 option objc_class_prefix = "";
 option optimize_for = SPEED;
 option swift_prefix = "";
